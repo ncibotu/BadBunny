@@ -1,0 +1,79 @@
+// This is a Google Apps Script to run in Google Sheets
+// 1. Open your Google Sheet
+// 2. Go to Extensions > Apps Script
+// 3. Paste this code into the script editor
+// 4. Save and run the setup function first
+// 5. Set up a trigger to run daily
+
+function copySheetDataDaily() {
+  const ss = SpreadsheetApp.getActiveSpreadsheet();
+  
+  // Configuration - modify these values
+  const Sheet1 = "youtube"; // Name of sheet to copy from
+  const SOURCE_RANGE = "A1:B300"; // Range to copy (e.g., "A1:D10")
+  const PREFIX = "YT"; // Prefix for new sheet names
+  
+  try {
+    // Get the source sheet and range
+    const sourceSheet = ss.getSheetByName(Sheet1);
+    if (!sourceSheet) {
+      Logger.log("Error: Source sheet '" + Sheet1 + "' not found");
+      return;
+    }
+    
+    const sourceRange = sourceSheet.getRange(SOURCE_RANGE);
+    const data = sourceRange.getValues();
+    const formats = sourceRange.getNumberFormats();
+    const backgrounds = sourceRange.getBackgrounds();
+    
+    // Create new sheet with today's date
+    const today = new Date();
+    const dateStr = Utilities.formatDate(today, Session.getScriptTimeZone(), "yyyy-MM-dd");
+    const newSheetName = PREFIX + " - " + dateStr;
+    
+    // Check if sheet for today already exists
+    let newSheet = ss.getSheetByName(newSheetName);
+    if (!newSheet) {
+      newSheet = ss.insertSheet(newSheetName);
+      Logger.log("Created new sheet: " + newSheetName);
+    } else {
+      Logger.log("Sheet for today already exists: " + newSheetName);
+      return;
+    }
+    
+    // Paste data into new sheet
+    const newRange = newSheet.getRange(1, 1, data.length, data[0].length);
+    newRange.setValues(data);
+    newRange.setNumberFormats(formats);
+    newRange.setBackgrounds(backgrounds);
+    
+    Logger.log("Data copied successfully to " + newSheetName);
+    
+  } catch (error) {
+    Logger.log("Error: " + error.toString());
+  }
+}
+
+function setupDailyTrigger() {
+  // Remove existing triggers
+  const triggers = ScriptApp.getProjectTriggers();
+  for (let i = 0; i < triggers.length; i++) {
+    if (triggers[i].getHandlerFunction() === "copySheetDataDaily") {
+      ScriptApp.deleteTrigger(triggers[i]);
+    }
+  }
+  
+  // Create new daily trigger (runs every day at 9 AM)
+  ScriptApp.newTrigger("copySheetDataDaily")
+    .timeBased()
+    .atHour(9)
+    .everyDays(1)
+    .create();
+  
+  Logger.log("Daily trigger set up. Function will run every day at 9 AM.");
+}
+
+function testRun() {
+  // Run this to test without waiting for the daily trigger
+  copySheetDataDaily();
+}
