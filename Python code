@@ -4,3 +4,14 @@ https://console.cloud.google.com/apis/library/youtube.googleapis.com?authuser=1&
 - copy for use in Python
 
 Now Python
+//first command//
+from googleapiclient.discovery import build
+
+//second command//
+api_key = 'whatever your key is'
+
+//third command//
+youtube = build('youtube', 'v3', developerKey = api_key)
+
+//request using BadBunny Handle//
+request = youtube.channels().list(part = 'statistics',forHandle = 'BadBunnyPR')
