@@ -16,4 +16,10 @@ youtube = build('youtube', 'v3', developerKey = api_key)
 //request using BadBunny Handle//
 request = youtube.channels().list(part = 'statistics',forHandle = 'BadBunnyPR')
 
+//making request//
+response = request.execute()
+
+//print response//
+response
+
 WORKING ON SPLITTING OUT DATA BY VIEWS AND COUNTRIES
