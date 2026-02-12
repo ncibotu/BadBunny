@@ -16,11 +16,11 @@ youtube = build('youtube', 'v3', developerKey = api_key)
 //request using BadBunny Handle//
 request = youtube.channels().list(part = 'statistics',forHandle = 'BadBunnyPR')
 
-//request using video ID//
-request = youtube.videos().list(part = 'statistics', id = video_id)
-
 //define video ID//
 video_id = 'VIDEO ID HERE'
+
+//request using video ID//
+request = youtube.videos().list(part = 'statistics', id = video_id)
 
 //making request//
 response = request.execute()
