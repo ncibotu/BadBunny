@@ -8,6 +8,8 @@ Second Trial.  Want to pull my own data so learning to use Google YouTube API Gr
 
 Part of second trial.  https://youtu.be/bu5wXjz2KvU?si=CgP7STheI6iI5whm.  figuring out how to connect Google Sheets with Python.
 
+Third part.  Develop network diagram using Gephi and my Bad Bunny data set.  Same link as above.
+
 //need to add these python packages//
 pip install --upgrade google-api-python-client
 pip install --upgrade google-auth-oauthlib google-auth-httplib2
