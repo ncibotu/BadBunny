@@ -10,6 +10,8 @@ Part of second trial.  https://youtu.be/bu5wXjz2KvU?si=CgP7STheI6iI5whm.  figuri
 
 Third part.  Develop network diagram using Gephi and my Bad Bunny data set.  Same link as above.
 
+September 2026 - https://docs.google.com/spreadsheets/d/1gEgDLrnhWDvlgR4Q0adME_YdTMQwRULb8WMNtIJ7sgQ/edit?usp=sharing (updated Bad Bunny data)
+
 //need to add these python packages//
 pip install --upgrade google-api-python-client
 pip install --upgrade google-auth-oauthlib google-auth-httplib2
